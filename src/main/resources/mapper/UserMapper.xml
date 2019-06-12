@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cxk.cxk.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="cxk.cxk.model.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="roleid" property="roleid" jdbcType="INTEGER" />
+    <result column="registertime" property="registertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, username, realname, password, email, roleid, registertime
+  </sql>
+
+  <select id="selectUserCountByName" resultType="cxk.cxk.model.User">
+    select * from userinfo where username=#{username}
+  </select>
+  <update id="resuserpasswordByUserName" parameterType="cxk.cxk.model.User">
+    update userinfo
+    set password=000000
+    where username=#{username}
+  </update>
+  <select id="regiterByName" parameterType="java.lang.String"  resultType="int">
+        select count(*) from userinfo where username=#{username}
+  </select>
+  <insert id="addUser" parameterType="cxk.cxk.model.User">
+        insert into userinfo(username,password,realname,registertime,roleid,email)values(#{username},#{password},#{realname},#{registertime},#{roleid},#{email})
+  </insert>
+</mapper>
